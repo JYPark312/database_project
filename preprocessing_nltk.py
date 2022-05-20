@@ -10,7 +10,8 @@ from nltk.tokenize.treebank import TreebankWordDetokenizer
 from textblob import TextBlob, Word
 from nltk.corpus import stopwords
 
-stop_words = stopwords.words('english')
+word_list = []  #custom stop word
+stop_words = stopwords.words('english') + stopwords.words('spanish') + word_list + stopwords.words('french')+ stopwords.words('portuguese') + stopwords.words('russian')
 shortword = re.compile(r'\W*\b\w{1,2}\b')
 
 def lem(a):   
@@ -62,4 +63,5 @@ def remove_emoji(string):
                                "]+", flags=re.UNICODE)
     return emoji_pattern.sub(r'', string)
 
+## 전처리 전 user_description 결측치 제거 필요
 
