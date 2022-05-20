@@ -65,3 +65,17 @@ def remove_emoji(string):
 
 ## 전처리 전 user_description 결측치 제거 필요
 
+#명사 추출 
+# input 데이터 변수명을 twitter로 설정, twitter['user_description']은 process_text 완료 되어있는 상태
+twitter['pos'] = twitter['user_description'].apply(lambda x: nltk.pos_tag(x)) # token에 pos tagging 
+
+NN_list = [] # 명사 리스트 생성
+for i in range(0, len(twitter['pos'])) :
+    NN_words = []
+    for word, pos in twitter['pos'].iloc[i]: 
+        if 'NN' in pos: #pos에 nn 이 들어가 있으면 
+            NN_words.append(word)
+    NN_list.append(NN_words)    
+
+twitter['user_description'] = NN_list #명사만 추출
+
